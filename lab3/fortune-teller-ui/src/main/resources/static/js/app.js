@@ -5,10 +5,12 @@ angular.module('fortunes', ['ngRoute']).config(function ($routeProvider) {
         controller: 'fortune'
     })
 
-}).controller('fortune', function ($scope, $http) {
+}).controller('fortune', ['$scope', '$http', '$log', function ($scope, $http, $log) {
 
-    $http.get('random').success(function (data) {
-        $scope.fortune = data;
-    });
+    $http
+        .get('/random')
+        .then(function (response) {
+            $scope.fortune = response.data;
+        });
 
-});
+}]);
